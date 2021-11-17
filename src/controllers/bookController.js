@@ -1,80 +1,55 @@
-const BookModel= require("../models/bookModel.js")
-const mongoose= require("mongoose")
+const BookModel = require("../models/bookModel.js")
+const mongoose = require("mongoose")
+const bookModel = require("../models/bookModel.js")
+
+// Task 1- Create a collection of 11+ books.
 
 const createBook = async function (req, res) {
-    const book= req.body
-    let savedBook= await BookModel.create(book)
-    res.send({msg: savedBook})
+    const book = req.body
+    let savedBook = await BookModel.create(book)
+    res.send({ msg: savedBook })
 }
 
-const getBooksData= async function (req, res) {
+// Task 2- return all the bookName and authorName only.
 
-        // let allBooks= await BookModel.find()
-        // let allBooks= await BookModel.find().count()
-        // let allBooks= await BookModel.find( { sales: 0 } )
-        // let allBooks= await BookModel.find( { sales: 0 } ).count()
+const allBooksList = async function (req, res) {
+    let list = await bookModel.find().select({ bookName: 1, authorName: 1, _id: 0 })
+    res.send({ msg: list })
+}
 
-        //and is when all the conditions have to be true
-        // or is when even if any condition is true , it is included
-        // let allBooks= await BookModel.find( { sales: 0 , isPublished : false} )
-        // let allBooks= await BookModel.find(  {  $or: [ {sales: 0} , {isPublished : false} ]  } )  
-        // let allBooks= await BookModel.find(  {  $or: [ {sales: 0} , {isPublished : false} ]  }  ).count()             
-        //  allBooks= await SalesModel.find({phoneName: "OnePlus7", createdAt: {$gt:"21-03-1999"}  }  ).count()             
+// Task 3- Return all those bookName which published in a inputed year
 
+const yearDetails = async function (req, res) {
+    let yearList= await bookModel.find({ year: req.body.year }).select({bookName:1,_id:0})
+    res.send(yearList)
+ }
 
-        // let allBooks= await BookModel.find( {  sales:   { $gt: 10}     }  )
-        // let allBooks= await BookModel.find( {  sales:   { $lt: 10}     }  )
+ // Task 4- send the reponse after satisfying the condition to bookName and year.
 
-        
-        // let allBooks= await BookModel.find( {  sales:   { $gte: 10   }    }  )
-        // let allBooks= await BookModel.find( {  sales:   { $lte: 10   }    }  )
+const particularBooks = async function (req, res) {
+    let specificBooks = await bookModel.find(req.body)
+    res.send(specificBooks)
+}
 
-        // let allBooks= await BookModel.find( {  sales:   { $ne: 0   }    }  )
-        // let allBooks= await BookModel.find( {  sales:   { $in: [ 0, 100, 4 , 1 ,2 ,3]   }     }  )
-        // let allBooks= await BookModel.find( {  sales:   { $nin: [ 0, 100, 4 , 1 ,2 ,3]   }     }  )
+// Task 5- send bookName of those book only which have indianprice of 100 inr or 200 inr or 500 inr.
 
+const priceDetails= async function(req,res){
+    let list = await bookModel.find({$or: [{"prices.indianPrice":"100 INR"},{"prices.indianPrice":"200 INR"},{"prices.indianPrice":"500 INR"}]}).select({bookName:1,_id:0})
+    res.send({ msg: list })
+}
 
-        // let allBooks= await BookModel.find( ).sort(  { bookName: 1 } ) //ascending sort
+//Send the details of those books which are in stock or having more than 500 pags.
 
-        // let allBooks= await BookModel.find( {  sales:   { $gt: 0   }    }  ).sort(  { bookName: -1 } ) //descending sort :-1
+const randomBooks= async function(req, res) {
+    let allBooks = await bookModel.find({$or:[ {stockAvailable: true},{ totalPages: {$gt: 500}}]})
+    res.send({msg: allBooks })
+}
 
-        // let allBooks= await BookModel.find( {  sales:   { $gt: 0   }    }  ).sort(  { bookName: 1 } ).limit(2) //limit will give only next 2 elements
-
-        // let allBooks= await BookModel.find( {  sales:   { $gt: 0   }    }  ).sort(  { bookName: 1 } ).limit(2).skip( 3 ) //SKIP is used for pagination
-        // let allBooks= await BookModel.find( {  sales: { $gt: 0   }  } ).select( { bookName: 1, sales: 1, _id: 0 } )
-
-
-        // let allBooks= await BookModel.findById(     mongoose.Types.ObjectId('61922aacac5fa8b15518d590') )
-
-
-
-
-        // REGULAR EXPRESSIONS(regex) : 
-
-        // let allBooks= await BookModel.find( {  bookName: /.*Node.*/i   } ) //has the word Node 
-        // let allBooks= await BookModel.find( {  bookName: /Node$/i   } ) //ends with Node
-        // let allBooks= await BookModel.find( {  bookName: /^Intro/i   } ) //starts with Node
-
-        let a=5
-        let b=6
-        let c=  a+b
-        console.log(c)
+module.exports.createBook = createBook;
+module.exports.allBooksList = allBooksList;
+module.exports.yearDetails = yearDetails;
+module.exports.particularBooks = particularBooks;
+module.exports.priceDetails = priceDetails;
+module.exports.randomBooks = randomBooks;
 
 
-
-        
-        let allBooks= await BookModel.find( { "prices.europeanPrice" : "4Pounds"} ) // without await, this line will start to get executed..but the server will move to next line without COMPLETING the execution..this might cause code to break in the next few lines
-        // hence we use await to ask the program to wait for the completion of this line..till this line completes, execution wont move to next line
-
-        // await is typically used at 2 places:
-            //- intearacting with database
-            //- calling another service (axios)..will be covered next week
-
-
-        //NOTE: await can not be used inside array functions like forEach / map / filter etc..self discovery and do post 
-
-        res.send({msg: allBooks})        
-    }
-
-module.exports.createBook= createBook
-module.exports.getBooksData= getBooksData
