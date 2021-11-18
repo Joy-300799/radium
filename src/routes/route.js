@@ -1,9 +1,15 @@
 const express = require('express');
-
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    res.send('My first ever api!')
-});
+
+
+//---------------My Author---------------------
+const myAuthorcon=require("../controller/myAuthorcon");
+
+router.post('/myAuthorCreation',myAuthorcon.myAuthorCreation);
+router.post('/myBookCreation',myAuthorcon.myBookCreation);
+router.get('/getBookData',myAuthorcon.getBookData);
+
+
 
 module.exports = router;
