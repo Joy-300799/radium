@@ -1,53 +1,24 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Schema.Types.ObjectId
+const PublisherId = mongoose.Schema.Types.ObjectId
 
-const bookSchema= new mongoose.Schema({
-
-//String
-//Number
-// Boolean
-// Array
-// Object
-// Date
-// Buffer
-// ObjectId
-
-    bookName: {
+const bookSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true
     },
-    ISBN: {
-        type: String,
-        required: true,
-        unique: true
+    author: {
+        type: ObjectId,
+        ref: 'myAuthor',
+        required: true
     },
-    author: String,
-    tags: [ String ], //array of strings 
-    year: Number,
-    isPublished: {
-        type: Boolean, //Boolean
-        default: false
-    },
-    prices: {
-        indianPrice: String,
-        europeanPrice: String,
-        usaPrice: String,
-        nepalPrice: String,
-        japanPrice: String,
-        chinesePrice: String,
-        sudanPrice: String
-    },
-    sales: {
-        type: Number,
-        default : 0
-    },
-    completionDate: Date
+    price: Number,
+    ratings: Number,
+    publisher: {
+        type: PublisherId,
+        ref: 'myPublisher',
+        required: true
+    }
+}, { timestamps: true })
 
-}, {timestamps: true} )
-
-module.exports = mongoose.model( 'Book', bookSchema ) 
-
-
-
-// Intro to Backend Engineering
-// FunctionUp
-// #Programming #backend #nodejs #bestBookEver #cool #lifeChanging
+module.exports = mongoose.model('myBook', bookSchema)
