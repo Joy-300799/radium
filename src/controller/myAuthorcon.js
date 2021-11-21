@@ -20,8 +20,8 @@ const myPublisherCreation= async function (req,res){
  //For book entry
 const myBookCreation = async function (req , res){
     let data = req.body;
-    let authorId=req.body.author;//     Assigned the auther id in variable to check it is valid or not
-    let publisherId=req.body.publisher;//     Assigned the publisher id in variable to check it is valid or not
+    let authorId=req.body.author;                 //     Assigned the auther id in variable to check it is valid or not
+    let publisherId=req.body.publisher;          //     Assigned the publisher id in variable to check it is valid or not
     let validId=await myAuthor.findById(authorId);
     let validId1=await myPublisher.findById(publisherId)
 
