@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-//---------------My Author---------------------
-const myAuthorcon=require("../controller/myAuthorcon");
 
-router.post('/myAuthorCreation',myAuthorcon.myAuthorCreation);
-router.post('/myBookCreation',myAuthorcon.myBookCreation);
-router.post('/myPublisher',myAuthorcon.myPublisherCreation);
-router.get('/getBookData',myAuthorcon.getBookData);
-router.get('/getSpecificData',myAuthorcon.getSpecificData);
+//------------------------Product selling-----------------------
 
+const compOrder=require('../controller/compOrder.js');
+const middle=require('../Middleware/middleware.js');
+
+router.post('/user',middle.mid1,compOrder.userCreation);
+router.post('/product',compOrder.productEntry);
+router.post('/order',middle.mid1,compOrder.takingOrder);
 
 
 
