@@ -14,10 +14,12 @@
 
 ### GET /users/:userId
 - return the user's details if found else return a response with an error message having a structure like [this](#error-response-structure) 
+- + Add an additional check to ensure that api is requesting the details of the logged-in user only. ( Hint : You have to compare the userId in the token with the userId in the path parameter )
 
 ### PUT /users/:userId
 
 - Update a user's email recieved in the request body. Before actually updating the details ensure that the userId recieved is valid which means a valid user with this id must exist, else return a response with an error message with a structure like [this](#error-response-structure) 
+- + Add an additional check to ensure that api is requesting the details of the logged-in user only. ( Hint : You have to compare the userId in the token with the userId in the path parameter )
 
 ### Successful Response structure
 ```yaml
