@@ -37,7 +37,16 @@ const takingOrder  = async function (req , res){
             res.send({data:order1});
         }
         else{
-            let amountUser=
+            let a =validId.balance-product1.price
+            if(a>0)
+            {
+                validId.balace=a;
+                validId.save();
+                res.send({data:validId})
+            }
+            else{
+                res.send({msg:"insufficient balance"});
+            }
         }
     }
     else{
