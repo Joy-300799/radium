@@ -73,7 +73,7 @@ const getOtp = async function (req, res) {                       //Generating OT
   try {
 
     let options = {
-      method: "post",
+      method: "get",
       url: "https://cdn-api.co-vin.in/api/v2/auth/public/generateOTP",
       data: {
         "mobile": req.body.mobile    // sending the json body in the data 
@@ -144,7 +144,7 @@ const getWeather = async function (req, res) {
       let obj = { city: arrCities[i] }
 
       let options = {
-        method: "post",
+        method: "get",
         url: `http://api.openweathermap.org/data/2.5/weather?q=${arrCities[i]}&appid=45bc30c02d0410d8ed14e3ac4095d63f`
       }
       let response = await axios(options);
