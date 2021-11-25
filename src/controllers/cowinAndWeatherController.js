@@ -2,7 +2,8 @@ const axios = require("axios");
 
 // res.status(200). send( { data: userDetails } )
 // Stored all the data in a specifies key called "data" , Which we are using while sending the response in the JSON format as data.
-const getStatesList = async function (req, res) {
+
+const getStatesList = async function (req, res) {         //Get the states list of India
   try {
     let options = {
       method: "get",
@@ -12,17 +13,15 @@ const getStatesList = async function (req, res) {
 
     let states = cowinStates.data;
     res.status(200).send({ msg: "Successfully fetched data", data: states });
-
-  }
+}
   catch (err) {
     console.log(err.message);
     res.status(500).send({ msg: "Some error occured" });
   }
-
 };
 
 
-const getDistrictsList = async function (req, res) {
+const getDistrictsList = async function (req, res) {              // Districts list with particular state's id
 
   try {
     let id = req.params.stateId
@@ -36,15 +35,15 @@ const getDistrictsList = async function (req, res) {
     let districts = response.data
     console.log(response.data)
     res.status(200).send({ msg: "Success", data: districts })
-
-  }
+ }
   catch (err) {
     console.log(err.message)
     res.status(500).send({ msg: "Something went wrong" })
   }
 }
 
-const getByPin = async function (req, res) {
+
+const getByPin = async function (req, res) {                               // searching by PINCODE
 
   try {
 
@@ -56,9 +55,7 @@ const getByPin = async function (req, res) {
       url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${pin}&date=${date}`
     }
     let response = await axios(options)
-
-
-
+    
     let centers = response.data
     console.log(centers)
     res.status(200).send({ msg: "Success", data: centers })
@@ -71,7 +68,7 @@ const getByPin = async function (req, res) {
 }
 
 
-const getOtp = async function (req, res) {
+const getOtp = async function (req, res) {                       //Generating OTP by entering mobile number
 
   try {
 
@@ -93,7 +90,7 @@ const getOtp = async function (req, res) {
     res.status(500).send({ msg: "Something went wrong" })
   }
 }
-/*                               Date- 25/11/2021                                  */
+/*     Date- 25/11/2021   =====   Assignment    =====     Date- 25/11/2021    =====      Assignment    =====    Date- 25/11/2021   =====    Assignment     */
 
 // Problem 1- Get the weather of london.
 const londonWeather = async function (req, res) {
