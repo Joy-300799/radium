@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const mongoose = require('mongoose')
 
-mongoose.connect("mongodb+srv://users-open-to-all:hiPassword123@cluster0.uh35t.mongodb.net/pkDB?retryWrites=true&w=majority", {useNewUrlParser: true})
-    .then(() => console.log('mongodb running and connected'))
+mongoose.connect("mongodb+srv://users-open-to-all:hiPassword123@cluster0.uh35t.mongodb.net/Joy_Bhattacharya-DB?retryWrites=true&w=majority", {useNewUrlParser: true})
+    .then(() => console.log('MongoDB is ready for action !'))
     .catch(err => console.log(err))
 
     
