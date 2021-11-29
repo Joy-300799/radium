@@ -9,7 +9,9 @@ const userSchema=new mongoose.Schema({
     },                               // Default balance at user registration is 100
 	address:String,
 	age: Number,
- 	gender:String,                             // Allowed values are - “male”, “female”, “other”
+ 	gender:{
+        type: string, enum:["male","female","others"]
+     },                            
 	freeAppUser: {
         type:Boolean,
         default:false
