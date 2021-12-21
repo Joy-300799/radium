@@ -5,20 +5,20 @@ const aws = require("aws-sdk");
 
 aws.config.update({
     accessKeyId: "AKIAY3L35MCRRMC6253G", // id
-    secretAccessKey: "88NOFLHQrap/1G2LqUy9YkFbFRe/GNERsCyKvTZA", // like your secret password
+    secretAccessKey: "88NOFLHQrap/1G2LqUy9YkFbFRe/GNERsCyKvTZA", // like secret password
     region: "ap-south-1" // Mumbai region
 });
 
 // this function uploads file to AWS and gives back the url for the file
 let uploadFile = async(file) => {
-    return new Promise(function(resolve, reject) { // exactly 
+    return new Promise(function(resolve, reject) { 
 
         // Create S3 service object
         let s3 = new aws.S3({ apiVersion: "2006-03-01" });
         var uploadParams = {
             ACL: "public-read", // this file is publically readable
-            Bucket: "classroom-training-bucket", // HERE
-            Key: "Joy1/" + new Date() + file.originalname, // HERE    "pk_newFolder/harry-potter.png" pk_newFolder/harry-potter.png
+            Bucket: "classroom-training-bucket", 
+            Key: "Joy1/" + new Date() + file.originalname, 
             Body: file.buffer,
         };
 
